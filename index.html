@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Revive Studio</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init("YOUR_EMAILJS_USER_ID"); // Replace with your EmailJS user ID
+    })();
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Revive Studio</h1>
+    <p>Your Wellness, Our Priority</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#appointment">Book Appointment</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="services" class="flex-container">
+
+      <div class="box">
+        <h2>Aesthetics</h2>
+
+        <h3>Laser Carbon Peeling</h3>
+        <img src="laser_carbon_peeling.jpg" alt="Laser Carbon Peeling" />
+        <p>A rejuvenating treatment to cleanse and refresh your skin.</p>
+
+        <h3>Hydra Facials</h3>
+        <img src="hydra_facial.jpg" alt="Hydra Facial" />
+        <p>Hydrating facial to restore moisture and glow.</p>
+
+        <h3>PRP Therapy</h3>
+        <img src="prp_therapy.jpg" alt="PRP Therapy" />
+        <p>Stimulate collagen production and skin healing with Platelet-Rich Plasma.</p>
+      </div>
+
+      <div class="box">
+        <h2>Physiotherapy</h2>
+
+        <h3>Pain Relief Therapy</h3>
+        <img src="pain_relief.jpg" alt="Pain Relief Therapy" />
+        <p>Effective treatment plans to reduce pain and inflammation.</p>
+
+        <h3>Mobility Improvement</h3>
+        <img src="mobility_improvement.jpg" alt="Mobility Improvement" />
+        <p>Personalized exercises to improve joint movement and flexibility.</p>
+
+        <h3>Rehabilitation</h3>
+        <img src="rehabilitation.jpg" alt="Rehabilitation" />
+        <p>Comprehensive recovery programs after injury or surgery.</p>
+      </div>
+    </section>
+
+    <section id="appointment">
+      <h2>Book an Appointment</h2>
+      <button class="btn" onclick="document.getElementById('form-container').style.display='block'">
+        Book Now
+      </button>
+
+      <div id="form-container" class="form-popup">
+        <form id="appointment-form" class="form-content" onsubmit="sendEmail(event)">
+          <label for="username">Full Name:</label>
+          <input type="text" id="username" name="username" required />
+
+          <label for="contact">Contact Number:</label>
+          <input type="tel" id="contact" name="contact" required />
+
+          <label for="email">Email Address:</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="time">Preferred Time:</label>
+          <input type="datetime-local" id="time" name="time" required />
+
+          <button type="submit" class="btn">Submit</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Revive Studio. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function closeForm() {
+      document.getElementById('form-container').style.display = 'none';
+      document.getElementById('appointment-form').reset();
+    }
+
+    function sendEmail(event) {
+      event.preventDefault();
+
+      const templateParams = {
+        username: document.getElementById('username').value,
+        contact: document.getElementById('contact').value,
+        email: document.getElementById('email').value,
+        time: document.getElementById('time').value,
+      };
+
+      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+        .then(function(response) {
+          alert('Appointment request sent! We will contact you shortly.');
+          closeForm();
+        }, function(error) {
+          alert('Failed to send appointment. Please try again.');
+          console.error('EmailJS error:', error);
+        });
+    }
+  </script>
+</body>
+</html>
